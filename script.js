@@ -44,8 +44,26 @@ window.onload = function() {
     console.error(event)
   };
   DBOpenRequest.onsuccess = event => {
+    console.log(DBOpenRequest.result)
     db = DBOpenRequest.result;
     //displayData();
   };
   /**** first task ended *****/
+  
+  /**** second task *****/
+  // handle versions and making objectstore
+  DBOpenRequest.onupgradeneeded = event => {
+    let db = event.target.result;
+    db.onerror = event => {
+      console.error(event)
+    };
+    let objectStore = db.createObjectStore("toDoList", { keyPath: "title" });
+    objectStore.createIndex("year", "year", { unique: false });
+    objectStore.createIndex("month", "month", { unique: false });
+    objectStore.createIndex("day", "day", { unique: false });
+    objectStore.createIndex("hour", "hour", { unique: false });
+    objectStore.createIndex("min", "min", { unique: false });
+    objectStore.createIndex("notified", "notified", { unique: false });
+  };
+  /**** second task *****/
 }
