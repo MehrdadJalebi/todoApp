@@ -69,3 +69,30 @@ window.onload = function() {
   /**** second task ended *****/
 }
 
+/**** third task *****/
+// add tasks to objectStore
+function addTask() {
+  let newItem = [
+    { 
+      title: title.value,
+      year: year.value,
+      month: month.value,
+      day: day.value,
+      hour: hour.value,
+      min: min.value,
+      notified: "no"
+    }
+  ];
+  let transaction = db.transaction(["tasks"], "readwrite");
+  let objectStore = transaction.objectStore("tasks");
+  let objectStoreRequest = objectStore.add(newItem[0]);
+  objectStoreRequest.onsuccess = function(event) {
+    title.value = '';
+    year.value = null;
+    month.value = '';
+    day.value = null;
+    hour.value = null;
+    min.value = null;
+  };
+}
+/**** third task ended *****/
