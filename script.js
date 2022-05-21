@@ -36,6 +36,7 @@ if(Notification.permission === 'denied' || Notification.permission === 'default'
   notifBtn.style.display = 'none';
 }
 
+
 window.onload = function() {
   /**** first task *****/
   // create a "toDoList" database in indexeddb
@@ -57,7 +58,7 @@ window.onload = function() {
     db.onerror = event => {
       console.error(event)
     };
-    let objectStore = db.createObjectStore("toDoList", { keyPath: "title" });
+    let objectStore = db.createObjectStore("tasks", { keyPath: "title" });
     objectStore.createIndex("year", "year", { unique: false });
     objectStore.createIndex("month", "month", { unique: false });
     objectStore.createIndex("day", "day", { unique: false });
@@ -65,5 +66,6 @@ window.onload = function() {
     objectStore.createIndex("min", "min", { unique: false });
     objectStore.createIndex("notified", "notified", { unique: false });
   };
-  /**** second task *****/
+  /**** second task ended *****/
 }
+
