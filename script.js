@@ -99,6 +99,14 @@ function displayData() {
       const toDoText = cursor.value.title;
       const listItem = createListItem(toDoText);
       taskList.appendChild(listItem);
+      const deleteButton = document.createElement('button');
+      deleteButton.style.marginLeft = '10px'
+      listItem.appendChild(deleteButton);
+      deleteButton.textContent = 'X';
+      deleteButton.setAttribute('task', cursor.value.title);
+      deleteButton.onclick = event => {
+        deleteItem(event);
+      }
       cursor.continue();
     }
   }
@@ -109,3 +117,16 @@ function createListItem(contents) {
   return listItem;
 }
 /**** fourth task ended *****/
+
+
+/**** fifth task *****/
+//be able to delete task
+function deleteItem(event) {
+  let dataTask = event.target.getAttribute('task');
+  let transaction = db.transaction(["tasks"], "readwrite");
+  let request = transaction.objectStore("tasks").delete(dataTask);
+  transaction.oncomplete = () => {
+    event.target.parentNode.parentNode.removeChild(event.target.parentNode);
+  };
+};
+/**** fifth task ended *****/
